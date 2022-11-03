@@ -1,0 +1,102 @@
+/* CRIANDO UMA FONTE PARA O SITE COM O NOME 'StarWars'*/
+@font-face{ 
+    font-family: 'StarWars';
+    src: url('../fonts/star_jedi/stjelogo/Strjmono.ttf');
+
+}
+
+/*TODO ELEMENTO DO SITE VAI TER UM BOX=SIZING: BORDER BOX */
+*{
+    box-sizing: border-box;
+}
+
+/* DEFININDO A FONTE DO BODY*/
+body {
+    font-size: 2em;
+    overflow: hidden;
+    font-family: 'StarWars';
+
+  }
+
+
+/* AQUI DEFININDO A POSIÇÃO DO TITULO E OBJETOS DA PAGE*/
+  .page-wrapper {
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+  }
+  
+  /* AQUI DEFININDO O TAMANHO DA FONTE E EFEITOS*/
+  .page-wrapper>h4 {
+    color: black;
+    font-size: 3em;
+    -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+    -moz-animation: neon1 1.5s ease-in-out infinite alternate;
+    animation: neon1 1.5s ease-in-out infinite alternate;
+    margin: 0;
+  }
+
+  /* DEFININDO O ALINHAMENTO E POSIÇÃO DA NAVE NA TELA INICIAL*/
+.select-spaceship{
+    font-size: 0.8em;
+    color:white;
+    text-align: center;
+    z-index: 2;
+}
+.select-spaceship>.spaceships{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* DEFININDO A COR E EXPESSURA DA BORDA*/
+.select-spaceship a{
+    margin: 10px;
+    padding: 20px;
+    border: 5px solid white;
+}
+/* ALTERANDO A COR DA BORDA QUANDO SELECIONADA A NAVE*/
+.select-spaceship a:hover{
+    border-color: #11FF77;
+}
+/* CRIANDO A NAVE */
+.spaceship{
+    position: absolute;
+    z-index: 2;
+    font-size: 1px;
+}
+
+/* DEFININDO O TAMANHO DA NAVE NA TELA INICIAL*/
+.spaceships img{
+    max-width: 50px;;
+}
+  
+
+  /* EFEITO DE NEON DAS LETRAS DA TELA INICIAL*/
+  /*GLOW FOR WEBSITES*/
+  @-webkit-keyframes neon1 {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }
+  /*GLOW FOR MOZILLA*/
+  @-moz-keyframes neon1 {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }
+  /*GLOW*/
+  @keyframes neon1 {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }

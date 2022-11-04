@@ -1,7 +1,7 @@
 /* CRIANDO UMA FONTE PARA O SITE COM O NOME 'StarWars'*/
 @font-face{ 
     font-family: 'StarWars';
-    src: url('../fonts/star_jedi/stjelogo/Strjmono.ttf');
+    src: url('../fonts/star_jedi/starjedi/Starjedi.ttf');
 
 }
 
@@ -62,18 +62,75 @@ body {
 /* CRIANDO A NAVE */
 .spaceship{
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     font-size: 1px;
+    /*background-color: red;
+    padding:0;
+    margin: 0;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 /* DEFININDO O TAMANHO DA NAVE NA TELA INICIAL*/
 .spaceships img{
-    max-width: 50px;;
+    max-width: 50px;
+    z-index: 4;
 }
-  
+
+/* CRIANDO OS PROPULSORES EFEITOS APLICANDO O NEON
+PSEUDOS ELEMENTOS DO ANTES E DEPOIS */
+.spaceship.xw::before,.spaceship.xw::after{
+  content:'';
+  width: 4px;
+  height: 10px;
+  background-color: #11FF77;
+  position: absolute;
+  bottom: -8px;
+  z-index: -1;
+  left: 33.5px;
+  border-radius: 50%;
+  -webkit-animation: laser 1.5s ease-in-out infinite;
+  /* PARA FUNCIONAR NO FIREFOX */
+  -moz-animation: laser 1.5s ease-in-out infinite;
+  animation: laser 1.5s ease-in-out infinite;
+}
+.spaceship.xw::after{
+  left: auto;
+  right: 33.5px;
+}
+
+/* CRIAÇÃO DOS LASERS*/
+.laser{
+  width: 2px;
+  height: 20px;
+  background-color: #115c77;
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  -webkit-animation: laser 1.5s ease-in-out infinite;
+  /* PARA FUNCIONAR NO FIREFOX */
+  -moz-animation: laser 1.5s ease-in-out infinite;
+  animation: laser 1.5s ease-in-out infinite;
+}
+.laser.imperial{
+  background-color: red;
+
+}
+.score{
+  color:white;
+  background-color: #fff3;
+  font-size: 18px;
+  position: absolute;
+  padding: 15px;
+  text-align: center;
+  right: 15px;
+  top: 15px;
+} 
 
   /* EFEITO DE NEON DAS LETRAS DA TELA INICIAL*/
-  /*GLOW FOR WEBSITES*/
+  /*GLOW FOR WEBKIT*/
   @-webkit-keyframes neon1 {
     from {
       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
@@ -98,5 +155,35 @@ body {
     }
     to {
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }
+
+  /* CSS DOS PROPULSORES (COPIADOS OS EFEITOS DE NEON DAS LETRAS
+  E TRANSFORMADOS PARA LASER E BOX-SHADOW  */
+   /*GLOW FOR WEBKIT*/
+   @-webkit-keyframes laser {
+    from {
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }
+  /*GLOW FOR MOZILLA*/
+  @-moz-keyframes laser {
+    from {
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
+    }
+  }
+  /*GLOW*/
+  @keyframes laser{
+    from {
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11FF77, 0 0 70px #11FF77, 0 0 80px #11FF77, 0 0 100px #11FF77, 0 0 150px #11FF77;
+    }
+    to {
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11FF77, 0 0 35px #11FF77, 0 0 40px #11FF77, 0 0 50px #11FF77, 0 0 75px #11FF77;
     }
   }

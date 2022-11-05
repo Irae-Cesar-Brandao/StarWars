@@ -59,7 +59,13 @@ body {
 .select-spaceship a:hover{
     border-color: #11FF77;
 }
+
 /* CRIANDO A NAVE */
+.select-spaceship .spaceship{
+  position: relative;
+}
+
+/* POSICIONANDO A  NAVE */
 .spaceship{
     position: absolute;
     z-index: 4;

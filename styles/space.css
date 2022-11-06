@@ -2,6 +2,8 @@
 ELABORADO PARA FINS DIDÁTICOS CURSO IFTO - PROGRAMADOR WEB 2022 */
 html, body {
     height: 100%;
+    padding: 0;
+    margin: 0;
   }
   
   body {

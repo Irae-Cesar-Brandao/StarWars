@@ -1,9 +1,6 @@
-/*STARWARS.JS - CÓDIGO DE CRIAÇÃO DO JOGO STAR WARS
-EM JAVASCRIPT REF CURSO IFTO: PROGRAMADOR WEB 2022
-ALUNO:  IRAÊ CÉSAR BRANDÃO*/
-
-// CRIAR FUNÇÃO PARA CRIAR UM ELEMENTO NO HTML  TAG, CLASSE E O CONTEUDO
-function randomInt(mx) {
+/*STARWARS.JS - CÓDIGO DE CRIAÇÃO DO JOGO STAR WARS EM JAVASCRIPT 
+REF CURSO IFTO: PROGRAMADOR WEB 2022 - ALUNO:  IRAÊ CÉSAR BRANDÃO*/
+function randomInt(max) {
     return Math.round(Math.random() * max);
 }
 function element(tagName, className = '', innerHTML = '') {
@@ -12,7 +9,6 @@ function element(tagName, className = '', innerHTML = '') {
     element.innerHTML = innerHTML;
     return element;
 }
-
 
 //CLASSE DA TELA DE BLOQUEIO DO  JOGO
 class LookScreen{
@@ -59,11 +55,28 @@ class SelectSpaceship{
                 this.#element.remove(); 
             }
         });
-        return container;
-        
+        return container;   
     }
-
 }
+
+// CLASSE SCROTE
+class Score{
+    #element;
+    #points;
+    constructor(game) {
+        const div = element('div', 'score', 'Pontuação<br>');
+        this.#element = element('span', '', 0);
+        div.appendChild(this.#element);
+        game.appendChild(div);
+        this.#points = 0;
+    }
+    addPoint() {
+        this.#points++;
+        this.#element.innerHTML = this.#points;
+    }
+}
+
+
 // CLASSE UFO - ESPAÇONAVE REBELDE
 class UFO{
     #game;
@@ -75,7 +88,7 @@ class UFO{
         this.#game.appendChild(this.#element);
         this.#top = top;
     }
-        // ELEMENTO QUE RETORNA TODAS AS PROPRIEDADES DE UM  modelETO
+        // ELEMENTO QUE RETORNA TODAS AS PROPRIEDADES DE UM MODELO
         //(getBoundingClientRect() retorna tamanho e posição de um elemento)
     get x() {return this.#element.getBoundingClientRect().left;}
     get y() {return this.#element.getBoundingClientRect().top;}
@@ -83,15 +96,18 @@ class UFO{
     get height() {return this.#element.getBoundingClientRect().height;}
     get maxWidth() {return this.#game.clientWidth;}
     get maxHeight() { return this.#game.clientHeight; }
-    set x(x) { this.#element.style.left = `${x}px`;}       //TEMPLATE STRING
-    set y(y) { this.#element.style.top = `${y}px`; }       // TEMPLATE STRING
+    set x(x) {
+        this.#element.style.left = `${x}px`;  //TEMPLATE STRING
+    }      
+    set y(y) {
+        this.#element.style.top = `${y}px`;   // TEMPLATE STRING
+    }      
     
     checkArea() {
         if (this.y + this.height < 0 || this.y > this.maxHeight){
             return false;
         }
         return true;
-    
     }
     animation(mov) {
         this.y += (this.#top) ? -mov : mov;  // MOVIMENTO DA NAVE
@@ -107,16 +123,17 @@ class UFO{
     }
 }
 
-
-// CLASSE ESPAÇONAVE COM AS MESMAS CARACTERÍSTICAS DE UFO
+// CLASSE ESPAÇONAVE REBELDE COM AS MESMAS CARACTERÍSTICAS DE UFO
 class Spaceship extends UFO{
     #guns;
     #gun_use;
     #type;
+    #img;
     constructor(game, model, type = 'imperial') {
         const top = type !== 'imperial';
         const element = Spaceship.createSpaceship(model.type);
         super(game, element, top);
+        this.#img = element.querySelector('img');
         // SETANDO O VALOR DE Y PARA POSICIONAR A NAVE ALIADA NA BASE DA TELA DISTANCIANDO
         this.y = this.maxHeight - this.height - 30;
         this.x = (this.maxWidth - this.width) / 2;
@@ -140,21 +157,34 @@ class Spaceship extends UFO{
         const newy = this.y + gun.y;
         return new Laser(game, this.#type, newx, newy);
     }
+    remove() {
+        this.#img.src = 'images/explosion.gif';  //INSERINDO A EXPLOSÃO NA COLISÃO 
+        setTimeout(() => {
+            super.remove();
+        } )
+        
+    }
 }
 
 // CLASSE LASER UFO (LASER NAVE REBELDE)
 class Laser extends UFO{
     constructor(game, type, x, y) {
         const top = type !== 'imperial';
-        super(game, element('div', 'laser ' + type),top);
+        super(game, element('div', 'laser ' + type), top);
         this.x = x;
         this.y = y;
+    }
+    animation(mov) {
+        return super.animation(mov * 2, 5);
     }
 }
 
 //CLASSE DA ESPAÇONAVE REBELDE
 class RebeldsSpaceship extends Spaceship{
     #direction;
+    constructor(game, model) {
+        super(game, model, 'rebelds');
+    }
     set direction(direction) {
         this.#direction = direction;
     }
@@ -172,6 +202,10 @@ class RebeldsSpaceship extends Spaceship{
 
 //CLASSE ESPAÇONASVES INIMIGAS
 class EnemySpaceship extends Spaceship{
+    constructor(game, model) {
+        super(game, model);
+        this.raffle();
+    }
     raffle() {
         this.x = randomInt(this.maxWidth - this.width);
         this.y = randomInt(-2000)-200;
@@ -182,6 +216,12 @@ class EnemySpaceship extends Spaceship{
         }
         return true;
     
+    }
+    fire(game) {
+        if (this.y > 0 && this.y < (this.maxWidth - this.height - 30)) {
+            return super.fire(game);
+        }
+        return false;
     }
 }
 
@@ -227,31 +267,33 @@ class StarWars{
 },
 ];   
 
-
-#enemies_spaceships;         // ESPAÇONAVES INIMIGAS
-#enemies_lasers;            // LASER INIMIGOS
-#enemies_max = 5;           // NUMERO MÁXIMO DE IINIMIGOS.
-
-
-    #interval;                  //  ARMAZENAR O MOTOR DO JOGO
-    #mov = 5;                   // DESLOCAMENTO PADRÃO DOS OBJETOS DO JOGO
+    // CRIANDO AS VARIAVEIS DO JOGO
+    #enemies_spaceships;          // ESPAÇONAVES INIMIGAS
+    #enemies_lasers;              // LASER INIMIGOS
+    #enemies_max = 5;             // NUMERO MÁXIMO DE INIMIGOS.
+    #enemies_lasers_intensity = 5 //USE VALOR DE 1 A 10
+    #interval;                    //  ARMAZENAR O MOTOR DO JOGO
+    #mov = 5;                     // DESLOCAMENTO PADRÃO DOS OBJETOS DO JOGO
+    #score;                       //  CRIACAO DA VARIAVEL SCORE (PLACA DO JOGO)
     constructor() {
-    this.#game = document.querySelector('body');      //TELA PRINCIPAL DO JOGO (BODY)
-       new LookScreen(this.#game, 'Aperte Enter', 13,
+        this.#game = document.querySelector('body');      //TELA PRINCIPAL DO JOGO (BODY)
+        new LookScreen(this.#game, 'Aperte Enter', 13,
             () => new SelectSpaceship(
             this.#game,
             this.#rebelds_models,
                 (type) => this.createSpaceship(type)
             )
         );
-     /*   this.#testeModel(this.#enemies_models[1]);   TESTADOR DOS MODELOS  DE NAVES*/
+     /*   this.#testeModel(this.#enemies_models[1]);   //TESTANDO DOS MODELOS  DE NAVES*/
     }
 
+    // CRIAÇÃO DOS OBJETOS DO JOGO
     createSpaceship(type) {
         this.#rebeld_spaceship = new RebeldsSpaceship(this.#game, type);
         this.#rebelds_lasers = [];
         this.#enemies_spaceships = [];
         this.#enemies_lasers = [];
+        this.#score = new Score(this.#game);
         this.start();
     }
     start() {               // FUNÇÃO DE INICIAR JOGO
@@ -263,6 +305,7 @@ class StarWars{
                 this.#enemies_spaceships.push(new EnemySpaceship(this.#game, model)); 
             }
             this.#animation();
+            this.#checkCollision();
         }, 20);
         
     }
@@ -277,14 +320,83 @@ class StarWars{
 
     #animation() {           // FUNÇÃO DE ANIMAÇÃO DO JOGO
         this.#rebeld_spaceship.animation(this.#mov)
-        this.#rebelds_lasers.forEach((laser, index) => {
-            if (!laser.animation(this.#mov)) {       // APAGAR LASERS ARMAZENADOS
-                this.#rebelds_lasers.splice(index, 1);
-            }
-        });
+
+        this.#animation_lasers(this.#rebelds_lasers);
         this.#enemies_spaceships.forEach((enemy) => {
             enemy.animation(this.#mov);
         });
+
+        const raffle = randomInt((20-this.#enemies_lasers_intensity)*this.#enemies_spaceships.length);
+        if (raffle < this.#enemies_spaceships.length) {
+            const laser = this.#enemies_spaceships[raffle].fire(this.#game);
+            if (laser) {
+                this.#enemies_lasers.push(laser);
+            }
+        }
+        this.#animation_lasers(this.#enemies_lasers);
+    }
+    #animation_lasers(lasers) {
+        lasers.forEach((laser, index) => {
+            if (!laser.animation(this.#mov)) {       // APAGAR LASERS ARMAZENADOS
+                lasers.splice(index, 1);
+            }
+        });
+    }
+
+    // CHECANDO COLISÃO (FAZER TODAS AS ETAPAS DE COLISÃO DO  JOGO)
+    #checkCollision() {
+        // NAVE PRINCIPAL COLIDINDO COM OUTRA NAVE
+        let collision_index = this.#collisionList(this.#rebeld_spaceship, this.#enemies_spaceships);
+        if (collision_index !== false) {
+            this.#rebeld_spaceship.remove();
+            this.#enemies_spaceships[collision_index].remove();
+            this.#gameOver();
+
+        }
+
+        //VERIFICAR SE NAVE PRINCIPAL COLIDIU COM LASERS INIMIGO
+        collision_index = this.#collisionList(this.#rebeld_spaceship, this.#enemies_lasers);
+        if (collision_index !== false) {
+            this.#rebeld_spaceship.remove();
+            this.#enemies_lasers[collision_index].remove();
+            this.#gameOver();
+        }
+
+        //NAVES IMIGAS COM LASER REBELDE
+        this.#enemies_spaceships.forEach((ufo, index) => {
+            index_collision = this.#collisionList(ufo, this.#rebelds_lasers);
+            if (collision_index !== false) {
+                ufo.remove();
+                this.#enemies_spaceships.splice(index, 1);
+                this.#rebelds_lasers[collision_index].remove();
+                this.#rebelds_lasers.splice(collision_index, 1);
+                this.#score.addPoint();
+            } 
+        });
+    }
+
+    //COLISÃO LISTA
+    #collisionList(ufo, ufo_list) {
+        for (let x = 0; x < ufo_list.length; x++) {
+            if (this.#collision(ufo, ufo_list[x])) {
+                return x;
+            }
+        }
+        return false;
+    }
+
+    // COLISÕES DAS  NAVES
+    #collision(ufo1, ufo2) {
+        const horizontal = ufo1.x + ufo1.width >= ufo2.x
+            && ufo1.x <= ufo2.x + ufo2.width;
+        const vertical = ufo1.y <= ufo2.y + ufo2.height
+            && ufo1.y + ufo1.height >= ufo2.y;
+        return horizontal && vertical;
+    }
+    // CRIANDO A FUNÇÃO DE GAME OVER
+    #gameOver() {
+        clearInterval(this.#interval);
+        new LookScreen(this.#game, 'Fim de jogo, Aperte Enter!', 13, () => location.reload());
     }
 
     // CONTROLES DO JOGO
@@ -321,7 +433,7 @@ class StarWars{
             }
         }
     }
-    #testeModel(model, type = 'imprerial') {
+    #testeModel(model, type = 'imperial') {
         const spaceship = new Spaceship(this.#game, model, type);
         spaceship.x = 200;
         spaceship.y = 200;

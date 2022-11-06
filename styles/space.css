@@ -38,7 +38,7 @@ html, body {
   .particle:after {
     position: absolute;
     content: "";
-    top: 2560px;
+    top: -2560px;
   }
   
   .particle-1 {
@@ -99,7 +99,7 @@ html, body {
       transform: translateY(0px);
     }
     to {
-      transform: translateY(-2560px);
+      transform: translateY(2560px);
     }
   }
 

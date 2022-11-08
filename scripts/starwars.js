@@ -35,10 +35,11 @@ class SelectSpaceship{
     #element;
     constructor(game, spaceships, fn) {
         this.#element = element('div', 'select-spaceship');
+        window.onkeyup = "";   // CORRIGIR 
         this.#element.appendChild(element('span', '', 'Selecione sua nave para a batalha!'));
         game.appendChild(this.#element);
         this.#element.appendChild(
-            this.#createSpaceships(spaceships, fn)
+            this.#createSpaceships(spaceships, fn) 
         );      
     }
 
@@ -161,7 +162,7 @@ class Spaceship extends UFO{
         this.#img.src = 'images/explosion.gif';  //INSERINDO A EXPLOSÃO NA COLISÃO 
         setTimeout(() => {
             super.remove();
-        } )
+        }, 500 )
         
     }
 }
@@ -184,6 +185,7 @@ class RebeldsSpaceship extends Spaceship{
     #direction;
     constructor(game, model) {
         super(game, model, 'rebelds');
+        this.#direction = 0;  //CORREÇÃO DO CÓDIGO 
     }
     set direction(direction) {
         this.#direction = direction;
@@ -196,6 +198,7 @@ class RebeldsSpaceship extends Spaceship{
             newx = this.maxWidth - this.width;
         }
         this.x = newx;
+
         
     }
 }
@@ -320,7 +323,6 @@ class StarWars{
 
     #animation() {           // FUNÇÃO DE ANIMAÇÃO DO JOGO
         this.#rebeld_spaceship.animation(this.#mov)
-
         this.#animation_lasers(this.#rebelds_lasers);
         this.#enemies_spaceships.forEach((enemy) => {
             enemy.animation(this.#mov);
@@ -356,6 +358,7 @@ class StarWars{
 
         //VERIFICAR SE NAVE PRINCIPAL COLIDIU COM LASERS INIMIGO
         collision_index = this.#collisionList(this.#rebeld_spaceship, this.#enemies_lasers);
+        //console.log(this.#enemies_lasers);
         if (collision_index !== false) {
             this.#rebeld_spaceship.remove();
             this.#enemies_lasers[collision_index].remove();
@@ -364,7 +367,7 @@ class StarWars{
 
         //NAVES IMIGAS COM LASER REBELDE
         this.#enemies_spaceships.forEach((ufo, index) => {
-            index_collision = this.#collisionList(ufo, this.#rebelds_lasers);
+            collision_index = this.#collisionList(ufo, this.#rebelds_lasers);
             if (collision_index !== false) {
                 ufo.remove();
                 this.#enemies_spaceships.splice(index, 1);

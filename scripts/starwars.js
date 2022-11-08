@@ -1,5 +1,11 @@
-/*STARWARS.JS - CÓDIGO DE CRIAÇÃO DO JOGO STAR WARS EM JAVASCRIPT 
-REF CURSO IFTO: PROGRAMADOR WEB 2022 - ALUNO:  IRAÊ CÉSAR BRANDÃO*/
+//starwars.js
+
+//PROJETO CONTRUÇÃO JOGUINHO STARWARS.CSS CRIADO DURANTE A REALIZAÇÃO
+//DO CURSO PROMOVIDO PELO IFTO - PROGRAMADOR WEB 2022
+//DEV- LINGUAGENS DE PROGRAMAÇÃO - FINS DIDÁTICOS
+//POR IRAÊ CÉSAR BRANDÃO - CURSSO MINIST. PROF. JOAQUIM M SCAVONE
+
+
 function randomInt(max) {
     return Math.round(Math.random() * max);
 }
@@ -446,5 +452,6 @@ class StarWars{
     }
 }
 new StarWars;
+/*document.getElementById('sound').play();*/
 
 

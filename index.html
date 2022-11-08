@@ -13,6 +13,19 @@
     <link rel="shortcut icon" href="images/mf.png" type="image/png">
 
     <title>starwars</title>
+        <!--STYLING INFORMATION WITH JS-->
+    
+    <script>
+    var x = document.getElementById("myAudio"); 
+
+    function playAudio() { 
+    x.play(); 
+        } 
+
+    function pauseAudio() { 
+    x.pause(); 
+        } 
+     </script>
     
     <!--STYLING INFORMATION WITH CSS-->
     <style>
@@ -26,7 +39,6 @@
             flex-direction: initial;
             width: 6.25%; /* 60 / 960 = 0.0625 */
         }
-
     </style>
 </head>
 <body>
@@ -51,8 +63,20 @@
     <div class="particle particle-4"></div>
     
 <!-- INSERT SOUND AND CONTROLS -->
-  <audio id="sound" controls="controls" autoplay="autoplay" muted="muted" 
-loop="loop" src="sounds/starwars.mp3" preload="auto"  min="0" max="100" value="42" >Marcha Imperial</audio>
+ <!-- <audio id="sound" controls="controls" autoplay="autoplay" muted="muted" 
+loop="loop" src="sounds/starwars.mp3" preload="auto"  min="0" max="100" value="42" >Marcha Imperial</audio>-->
+     
+     
+     <audio id="myAudio">
+    <source src="sounds/starwars.mp3" type="audio/mpeg">
+    <source src="" type="audio/ogg">
+        Seu browser não suporta audio.
+      </audio>
+
+<image src="http://kithomepage.com/images/Play-Normal-icon.png" width="64" height="64" onmouseover="playAudio()">
+<image src="http://kithomepage.com/images/Pause-Normal-icon.png" width="64" height="64"onmouseover="pauseAudio()">
+     
+
     
 </div>
 <!-- REDIRECTING TO JAVASCRIPT FILE-->

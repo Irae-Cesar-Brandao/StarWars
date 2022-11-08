@@ -1,7 +1,13 @@
+/*starwars.css //
+/*PROJETO CONTRUÇÃO JOGUINHO STARWARS.CSS CRIADO DURANTE A REALIZAÇÃO
+DO CURSO PROMOVIDO PELO IFTO - PROGRAMADOR WEB 2022 
+DEV- LINGUAGENS DE PROGRAMAÇÃO - FINS DIDÁTICOS
+POR IRAÊ CÉSAR BRANDÃO - EDIÇÃO MINIST. PROF. JOAQUIM SCAVONE*/
+
 /* CRIANDO UMA FONTE PARA O SITE COM O NOME 'StarWars'*/
 @font-face{ 
     font-family: 'StarWars';
-    src: url('../fonts/star_jedi/starjedi/Starjedi.ttf');
+    src: url('../fonts/Starjedi.ttf');
 
 }
 

@@ -87,7 +87,7 @@ body {
 
 /* DEFININDO O TAMANHO DA NAVE NA TELA INICIAL*/
 .spaceships img{
-    max-width: 50px;
+    max-width: 40px;
     z-index: 4;
 }
 

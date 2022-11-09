@@ -1,45 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Game, starwars, javascript, htm, css, aulas, programador, linguagens, didatico, exercicio">
+    <meta name="author" content="Iraê César Brandão">
+
+<!-- REDIRECTING TO CSS FILES-->
     <link rel="stylesheet" href="styles/space.css">
     <link rel="stylesheet" href="styles/starwars.css">
-    <!-- CRIANDO UM ÍCONE NO CABEÇALHO DA PÁGINA-->
-    <link rel="shortcut icon" href="/images/mf.png" type="image/png">
-    <title>starwars</title>
+    
+<!-- CREATING AN ICON FAVICON IN THE PAGE HEADER-->
+    <link rel="shortcut icon" href="images/mf.png" type="image/png">
 
+    <title>starwars</title>
+    
+<!--STYLING NOTICE AND INFORMATION WITH CSS-->
     <style>
         h6{
             font-size: 45%;
             font-family: Arial, Helvetica, sans-serif;
-            max-width: 15%;
+            /*max-width: 15%;*/
             align-self:flex-start;
             background-color: rgb(32, 32, 41);
             color: #11FF77;
-            flex-direction: initial;
+            flex-direction:inherit;
+            width: 30%;
+            margin:  auto 0;
         }
-
     </style>
 </head>
 <body>
-
     <div class="page-bg"></div>
-<div class="animation-wrapper">
+<div class="animation-wrapper">  
+       
+<!--NOTICE AND INFORMATION-->    
+        <h6>
+            <b><i><hr> 
+            Course: WEB PROGRAMMER-2022 - Irae César Brandao Class: HTML/JS/CSS
+            <hr>
+            USE ON KEYBOARD: <br>
+            -LASERS: "spacebar" <br>
+            -MOVE: "Arrows"<br>
+            -PAUSE: "P" button
+            <hr>
+            </i></b>
+        </h6>
+                  
 
- <h6>Curso Prog. WEB 2022  <br>
-            - Aluno: irae c brandao <br>
-            - Aula: JavaScript</h6>
-
+<!--CREATE CLASS PARTICLES IN SPACE-->
     <div class="particle particle-1"></div>
-    <!-- <div class="particle particle-2"></div>-->
-    <!-- <div class="particle particle-3"></div>-->
+    <!-- <div class="particle particle-2"></div>--><!--COMMENT: DECREASE PARTICLES--> 
+    <!-- <div class="particle particle-3"></div>--><!--COMMENT: DECREASE PARTICLES-->
     <div class="particle particle-4"></div>
-
-  <audio id="sound" controls="controls" autoplay="autoplay" muted="muted" loop="loop" src="sounds/starwars.mp3" preload="auto"  min="0" max="100" value="42" >Marcha Imperial</audio>
-
+    
+<!-- INSERT SOUND AND CONTROLS -->
+<audio id="sound" controls="controls" autoplay="autoplay" muted="muted" 
+loop="loop" src="sounds/starwars.mp3" preload="auto"  min="0" max="100" value="42" >Marcha Imperial</audio>
+     
+    
 </div>
+<!-- REDIRECTING TO JAVASCRIPT FILE-->
 <script  src="scripts/starwars.js"></script>
 </body>
 </html>

@@ -111,9 +111,6 @@ html, body {
   }
 
   
-<<<<<<< HEAD
-=======
-=======
 /*space.css //
 /*PROJETO CONTRUÇÃO JOGUINHO STARWARS.CSS CRIADO DURANTE A REALIZAÇÃO
 DO CURSO PROMOVIDO PELO IFTO - PROGRAMADOR WEB 2022 
@@ -134,8 +131,8 @@ html, body {
     justify-content: center;
     align-items: center;
     /*  REMOVIDAS ESSAS DUAS LINHAS E EDITADAS EM STARWARS.CSS */
-    /*font-size: 4rem;  
-    overflow: hidden; */
+    /*font-size: 4rem; */ 
+   /* overflow: hidden; */
   }
   
   .page-bg, .animation-wrapper {
@@ -225,8 +222,3 @@ html, body {
       transform: translateY(2560px);
     }
   }
-
-  
->>>>>>> 1043b784c99ee3cc138316752aa4eeca8812a253
->>>>>>> ddf95d4eca976f9497d5b1a2cef61ebc1f8a2a88
-  

@@ -320,7 +320,7 @@ class StarWars{
     }
     pause() {                // FUNÇÃO DE PAUSA DO JOGO
         clearInterval(this.#interval);
-        new LookScreen(this.#game, 'Aperte Pause p/continuar...', 19,
+        new LookScreen(this.#game, 'Aperte Pause p/continuar...', 80, // 19 PAUSE  E 80 P
             () => {
                 this.start();
             }
@@ -416,7 +416,7 @@ class StarWars{
                     const laser = this.#rebeld_spaceship.fire(this.#game);
                     this.#rebelds_lasers.push(laser);
                     break;
-                case 19:       
+                case 80:    // 19 PAUSE E 80 É A P   
                     this.pause();
                     break;
                 case 37:

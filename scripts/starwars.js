@@ -1,5 +1,4 @@
 //starwars.js
-
 //PROJETO CONTRUÇÃO JOGUINHO STARWARS.CSS CRIADO DURANTE A REALIZAÇÃO
 //DO CURSO PROMOVIDO PELO IFTO - PROGRAMADOR WEB 2022
 //DEV- LINGUAGENS DE PROGRAMAÇÃO - FINS DIDÁTICOS
@@ -16,7 +15,7 @@ function element(tagName, className = '', innerHTML = '') {
     return element;
 }
 
-//CLASSE DA TELA DE BLOQUEIO DO  JOGO
+//CLASSE TELA DE BLOQUEIO DO  JOGO
 class LookScreen{
     #element;
     constructor(game, msg, keyCode, fn) {
@@ -36,12 +35,12 @@ class LookScreen{
     }
 }
 
-//CLASSE DE SELEÇÃO DAS NAVES 
+//CLASSE SELEÇÃO DAS NAVES 
 class SelectSpaceship{
     #element;
     constructor(game, spaceships, fn) {
         this.#element = element('div', 'select-spaceship');
-        window.onkeyup = "";   // CORRIGIR 
+        window.onkeyup = "";   // CORRIGIDO (ESTE COMANDO E PARA NÃO DUPLICAR TELA APÓS ENTER)
         this.#element.appendChild(element('span', '', 'Selecione sua nave para a batalha!'));
         game.appendChild(this.#element);
         this.#element.appendChild(
@@ -66,7 +65,7 @@ class SelectSpaceship{
     }
 }
 
-// CLASSE SCROTE
+// CLASSE SCORE (PONTUAÇÃO DO JOGO)
 class Score{
     #element;
     #points;
@@ -96,7 +95,7 @@ class UFO{
         this.#top = top;
     }
         // ELEMENTO QUE RETORNA TODAS AS PROPRIEDADES DE UM MODELO
-        //(getBoundingClientRect() retorna tamanho e posição de um elemento)
+        //(getBoundingClientRect() RETORNADO O TAMANHO E A POSIÇAO DO ELEMENTO)
     get x() {return this.#element.getBoundingClientRect().left;}
     get y() {return this.#element.getBoundingClientRect().top;}
     get width() {return this.#element.getBoundingClientRect().width;}
@@ -168,7 +167,7 @@ class Spaceship extends UFO{
         this.#img.src = 'images/explosion.gif';  //INSERINDO A EXPLOSÃO NA COLISÃO 
         setTimeout(() => {
             super.remove();
-        }, 500 )
+        }, 500 )  // INSERIDO O 500 PARA IMPACTO DOS TIROS NOS ENEMIES
         
     }
 }
@@ -186,7 +185,7 @@ class Laser extends UFO{
     }
 }
 
-//CLASSE DA ESPAÇONAVE REBELDE
+//CLASSE ESPAÇONAVE REBELDE
 class RebeldsSpaceship extends Spaceship{
     #direction;
     constructor(game, model) {
@@ -209,7 +208,7 @@ class RebeldsSpaceship extends Spaceship{
     }
 }
 
-//CLASSE ESPAÇONASVES INIMIGAS
+//CLASSE ESPAÇONAVES INIMIGAS
 class EnemySpaceship extends Spaceship{
     constructor(game, model) {
         super(game, model);
@@ -234,9 +233,9 @@ class EnemySpaceship extends Spaceship{
     }
 }
 
-//CLASSE QUE GERENCIA O JOGO
+//CLASSE QUE GERENCIA TODO O JOGO
 class StarWars{
-    #game;                          // TELA DO JOGO
+    #game;                       // TELA DO JOGO
     
     #rebelds_models = [          // OPÇÕES DAS ESPAÇONAVES
         {type: 'xw',
@@ -263,15 +262,16 @@ class StarWars{
 
     #enemies_models = [          // OPÇÕES DAS ESPAÇONAVES
     {type: 'ief',
-        guns: [            { x: 29, y: 130 },    // CANHÃO DA ESQUERDA
-            { x: 68, y: 130 }    // CANHÃO DA DIREITA
+            guns: [
+                { x: 29, y: 130 },    // CANHÃO DA ESQUERDA
+                { x: 68, y: 130 }    // CANHÃO DA DIREITA
         ]
     },
     
     {type: 'tfa',
-    guns: [
-            { x: 5, y: 85 },    // CANHÃO DA ESQUERDA
-            { x: 93, y: 85 }    // CANHÃO DA DIREITA
+             guns: [
+                { x: 5, y: 85 },    // CANHÃO DA ESQUERDA
+                { x: 93, y:85 }    // CANHÃO DA DIREITA
     ]
 },
 ];   
@@ -280,13 +280,13 @@ class StarWars{
     #enemies_spaceships;          // ESPAÇONAVES INIMIGAS
     #enemies_lasers;              // LASER INIMIGOS
     #enemies_max = 5;             // NUMERO MÁXIMO DE INIMIGOS.
-    #enemies_lasers_intensity = 5 //USE VALOR DE 1 A 10
+    #enemies_lasers_intensity = 5 //USE VR DE 1 A 10 (AUMENTA A INTENSIDADE DE DISPAROS INIMIGOS)
     #interval;                    //  ARMAZENAR O MOTOR DO JOGO
     #mov = 5;                     // DESLOCAMENTO PADRÃO DOS OBJETOS DO JOGO
     #score;                       //  CRIACAO DA VARIAVEL SCORE (PLACA DO JOGO)
     constructor() {
-        this.#game = document.querySelector('body');      //TELA PRINCIPAL DO JOGO (BODY)
-        new LookScreen(this.#game, 'Aperte Enter', 13,
+        this.#game = document.querySelector('body');  //TELA PRINCIPAL DO JOGO (BODY)
+        new LookScreen(this.#game, 'Aperte ENTER', 13,  // PROGRAMADO O ENTER(TECLA 13)
             () => new SelectSpaceship(
             this.#game,
             this.#rebelds_models,
@@ -318,9 +318,10 @@ class StarWars{
         }, 20);
         
     }
-    pause() {                // FUNÇÃO DE PAUSA DO JOGO
+    // FUNÇÃO DE PAUSA DO JOGO TECLA 19=PAUSE E 80= P 
+    pause() {                
         clearInterval(this.#interval);
-        new LookScreen(this.#game, 'Aperte Pause p/continuar...', 80, // 19 PAUSE  E 80 P
+        new LookScreen(this.#game, 'Aperte Pause p/continuar...', 80,  
             () => {
                 this.start();
             }
@@ -353,7 +354,7 @@ class StarWars{
 
     // CHECANDO COLISÃO (FAZER TODAS AS ETAPAS DE COLISÃO DO  JOGO)
     #checkCollision() {
-        // NAVE PRINCIPAL COLIDINDO COM OUTRA NAVE
+    // NAVE PRINCIPAL COLIDINDO COM OUTRA NAVE
         let collision_index = this.#collisionList(this.#rebeld_spaceship, this.#enemies_spaceships);
         if (collision_index !== false) {
             this.#rebeld_spaceship.remove();
@@ -384,7 +385,7 @@ class StarWars{
         });
     }
 
-    //COLISÃO LISTA
+    //COLISÃO LISTA (LISTANDO AS COLISÕES)
     #collisionList(ufo, ufo_list) {
         for (let x = 0; x < ufo_list.length; x++) {
             if (this.#collision(ufo, ufo_list[x])) {
@@ -394,7 +395,7 @@ class StarWars{
         return false;
     }
 
-    // COLISÕES DAS  NAVES
+    // COLISÕES DAS  NAVES (EEITO DE COLISÃO)
     #collision(ufo1, ufo2) {
         const horizontal = ufo1.x + ufo1.width >= ufo2.x
             && ufo1.x <= ufo2.x + ufo2.width;
@@ -408,22 +409,22 @@ class StarWars{
         new LookScreen(this.#game, 'Fim de jogo, Aperte Enter!', 13, () => location.reload());
     }
 
-    // CONTROLES DO JOGO
+    // CONTROLES DO JOGO PELO KEYBOARD (TECLADO)
     #gameControlls() {
         window.onkeyup = (event) => {   // AEROFUNCTION
-            switch (event.keyCode) {     // CRIAÇÃO SWITCH
+            switch (event.keyCode) {     // CRIAÇÃO SWITCH (USO TECLADO)
                 case 32:
                     const laser = this.#rebeld_spaceship.fire(this.#game);
                     this.#rebelds_lasers.push(laser);
                     break;
-                case 80:    // 19 PAUSE E 80 É A P   
+                case 80:    // TECLA 19=PAUSE E TELA 80= P   
                     this.pause();
                     break;
                 case 37:
                 case 39:
                     this.#rebeld_spaceship.direction = 0;
                     break;
-                case 73:     // TECLA I PRESSIONADA INFORMA NO CONCOLE OS LASER ARMAZENADOS
+                case 73:     // TECLA I PRESSIONADA INFORMA NO CONSOLE OS LASER ARMAZENADOS
                     console.log(this.#rebelds_lasers);
                     break;
                 default:
@@ -442,6 +443,8 @@ class StarWars{
             }
         }
     }
+
+    // TESTANDO OS MODELOS DAS NAVES //
     #testeModel(model, type = 'imperial') {
         const spaceship = new Spaceship(this.#game, model, type);
         spaceship.x = 200;
@@ -452,6 +455,6 @@ class StarWars{
     }
 }
 new StarWars;
-/*document.getElementById('sound').play();*/
+/*document.getElementById('sound').play();*/  //AQUI DEFINE O SOM (NÃO IMPLMENTADO NO CURSO)
 
 
